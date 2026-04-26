@@ -36,3 +36,28 @@
     font-size: 48px;
   }
 }
+
+/* Top header section */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Remove All button */
+.remove-all-button {
+  background: transparent;
+  border: 1px solid #0b69ff;
+  color: #0b69ff;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-family: 'Roboto';
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Optional hover (makes it look alive) */
+.remove-all-button:hover {
+  background-color: #0b69ff;
+  color: white;
+}

@@ -17,11 +17,63 @@ class App extends Component {
     cartList: [],
   }
 
+  // ✅ Add to Cart (with quantity handling)
   addCartItem = product => {
-    this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
+    this.setState(prevState => {
+      const existingItem = prevState.cartList.find(
+        item => item.id === product.id,
+      )
+
+      if (existingItem) {
+        return {
+          cartList: prevState.cartList.map(item =>
+            item.id === product.id
+              ? {
+                  ...item,
+                  quantity: item.quantity + product.quantity,
+                }
+              : item,
+          ),
+        }
+      }
+
+      return {
+        cartList: [...prevState.cartList, product],
+      }
+    })
   }
 
-  deleteCartItem = () => {}
+  // ✅ Delete single item
+  deleteCartItem = id => {
+    this.setState(prevState => ({
+      cartList: prevState.cartList.filter(item => item.id !== id),
+    }))
+  }
+
+  // ✅ Increment quantity
+  incrementItem = id => {
+    this.setState(prevState => ({
+      cartList: prevState.cartList.map(item =>
+        item.id === id ? {...item, quantity: item.quantity + 1} : item,
+      ),
+    }))
+  }
+
+  // ✅ Decrement quantity
+  decrementItem = id => {
+    this.setState(prevState => ({
+      cartList: prevState.cartList
+        .map(item =>
+          item.id === id ? {...item, quantity: item.quantity - 1} : item,
+        )
+        .filter(item => item.quantity > 0),
+    }))
+  }
+
+  // ✅ Clear entire cart
+  removeAllCartItems = () => {
+    this.setState({cartList: []})
+  }
 
   render() {
     const {cartList} = this.state
@@ -33,10 +85,14 @@ class App extends Component {
             cartList,
             addCartItem: this.addCartItem,
             deleteCartItem: this.deleteCartItem,
+            incrementItem: this.incrementItem,
+            decrementItem: this.decrementItem,
+            removeAllCartItems: this.removeAllCartItems,
           }}
         >
           <Switch>
             <Route exact path="/login" component={LoginForm} />
+
             <ProtectedRoute exact path="/" component={Home} />
             <ProtectedRoute exact path="/products" component={Products} />
             <ProtectedRoute
@@ -45,8 +101,9 @@ class App extends Component {
               component={ProductItemDetails}
             />
             <ProtectedRoute exact path="/cart" component={Cart} />
+
             <Route path="/not-found" component={NotFound} />
-            <Redirect to="not-found" />
+            <Redirect to="/not-found" />
           </Switch>
         </CartContext.Provider>
       </BrowserRouter>

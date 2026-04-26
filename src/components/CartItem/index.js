@@ -8,31 +8,58 @@ import './index.css'
 const CartItem = props => (
   <CartContext.Consumer>
     {value => {
-      const {deleteCartItem} = value
+      const {deleteCartItem, incrementItem, decrementItem} = value
+
       const {cartItemDetails} = props
       const {id, title, brand, quantity, price, imageUrl} = cartItemDetails
+
       const onDeleteCartItem = () => {
         deleteCartItem(id)
       }
+
+      const onIncrement = () => {
+        incrementItem(id)
+      }
+
+      const onDecrement = () => {
+        decrementItem(id)
+      }
+
       return (
         <li className="cart-item">
           <img className="cart-product-image" src={imageUrl} alt={title} />
+
           <div className="cart-item-details-container">
             <div className="cart-product-title-brand-container">
               <p className="cart-product-title">{title}</p>
               <p className="cart-product-brand">by {brand}</p>
             </div>
+
+            {/* ✅ Quantity Controls */}
             <div className="cart-quantity-container">
-              <button type="button" className="quantity-controller-button">
+              <button
+                type="button"
+                className="quantity-controller-button"
+                onClick={onDecrement}
+              >
                 <BsDashSquare color="#52606D" size={12} />
               </button>
+
               <p className="cart-quantity">{quantity}</p>
-              <button type="button" className="quantity-controller-button">
+
+              <button
+                type="button"
+                className="quantity-controller-button"
+                onClick={onIncrement}
+              >
                 <BsPlusSquare color="#52606D" size={12} />
               </button>
             </div>
+
+            {/* ✅ Price + Remove */}
             <div className="total-price-delete-container">
               <p className="cart-total-price">Rs {price * quantity}/-</p>
+
               <button
                 className="remove-button"
                 type="button"
@@ -42,6 +69,8 @@ const CartItem = props => (
               </button>
             </div>
           </div>
+
+          {/* ✅ Close Icon Delete */}
           <button
             className="delete-button"
             type="button"
