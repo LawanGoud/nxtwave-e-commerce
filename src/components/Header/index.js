@@ -17,13 +17,16 @@ const Header = props => {
     <CartContext.Consumer>
       {value => {
         const {cartList} = value
-        const cartItemsCount = cartList.length
+
+        const totalItems = cartList.reduce(
+          (sum, item) => sum + item.quantity,
+          0,
+        )
+
         return (
-          <>
-            {cartItemsCount > 0 ? (
-              <span className="cart-count-badge">{cartList.length}</span>
-            ) : null}
-          </>
+          <Link to="/cart" className="nav-link">
+            Cart ({totalItems})
+          </Link>
         )
       }}
     </CartContext.Consumer>

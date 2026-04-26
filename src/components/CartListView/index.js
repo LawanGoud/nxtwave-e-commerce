@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import CartItem from '../CartItem'
 import CartContext from '../../context/CartContext'
 
@@ -31,9 +32,11 @@ const CartListView = () => (
 
             <p className="total-items">{totalItems} Items in cart</p>
 
-            <button type="button" className="checkout-button">
-              Checkout
-            </button>
+            <Link to="/checkout">
+              <button type="button" className="checkout-button">
+                Checkout
+              </button>
+            </Link>
           </div>
         </div>
       )

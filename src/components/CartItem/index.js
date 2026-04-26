@@ -44,6 +44,7 @@ const CartItem = props => (
                 type="button"
                 className="quantity-controller-button"
                 onClick={onDecrement}
+                disabled={quantity === 1}
               >
                 <BsDashSquare color="#52606D" size={12} />
               </button>

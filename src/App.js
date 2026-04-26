@@ -10,6 +10,7 @@ import Cart from './components/Cart'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import CartContext from './context/CartContext'
+import Checkout from './components/Checkout'
 
 import './App.css'
 
@@ -127,6 +128,7 @@ class App extends Component {
                 component={ProductItemDetails}
               />
               <ProtectedRoute exact path="/cart" component={Cart} />
+              <ProtectedRoute exact path="/checkout" component={Checkout} />
 
               <Route path="/not-found" component={NotFound} />
               <Redirect to="/not-found" />
