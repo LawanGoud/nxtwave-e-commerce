@@ -6,7 +6,7 @@ import './index.css'
 const CartListView = () => (
   <CartContext.Consumer>
     {value => {
-      const {cartList, removeAllCartItems} = value
+      const {cartList} = value
 
       const totalItems = cartList.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -16,28 +16,26 @@ const CartListView = () => (
       )
 
       return (
-        <>
+        <div className="cart-main-container">
           <ul className="cart-list">
             {cartList.map(eachCartItem => (
               <CartItem key={eachCartItem.id} cartItemDetails={eachCartItem} />
             ))}
           </ul>
 
-          {/* ✅ Summary */}
-          <div className="cart-summary">
-            <h3>Total Items: {totalItems}</h3>
-            <h2>Total Price: ₹{totalPrice}</h2>
+          {/* 🔥 Proper Summary Card */}
+          <div className="cart-summary-container">
+            <h1 className="order-total">
+              Order Total: <span>Rs {totalPrice}/-</span>
+            </h1>
 
-            {/* ✅ Remove All Button */}
-            <button
-              type="button"
-              className="remove-all-button"
-              onClick={removeAllCartItems}
-            >
-              Remove All
+            <p className="total-items">{totalItems} Items in cart</p>
+
+            <button type="button" className="checkout-button">
+              Checkout
             </button>
           </div>
-        </>
+        </div>
       )
     }}
   </CartContext.Consumer>

@@ -3,6 +3,8 @@ import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 
+import toast from 'react-hot-toast'
+
 import CartContext from '../../context/CartContext'
 
 import Header from '../Header'
@@ -49,27 +51,34 @@ class ProductItemDetails extends Component {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
+
     const jwtToken = Cookies.get('jwt_token')
     const apiUrl = `https://apis.ccbp.in/products/${id}`
+
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
       method: 'GET',
     }
+
     const response = await fetch(apiUrl, options)
+
     if (response.ok) {
       const fetchedData = await response.json()
+
       const updatedData = this.getFormattedData(fetchedData)
       const updatedSimilarProductsData = fetchedData.similar_products.map(
         eachSimilarProduct => this.getFormattedData(eachSimilarProduct),
       )
+
       this.setState({
         productData: updatedData,
         similarProductsData: updatedSimilarProductsData,
         apiStatus: apiStatusConstants.success,
       })
     }
+
     if (response.status === 404) {
       this.setState({
         apiStatus: apiStatusConstants.failure,
@@ -122,19 +131,24 @@ class ProductItemDetails extends Component {
           title,
           totalReviews,
         } = productData
+
         const {addCartItem} = value
         const onClickAddToCart = () => {
           addCartItem({...productData, quantity})
           this.setState({quantity: 1})
+
+          toast.success('Item added to cart 🛒')
         }
 
         return (
           <div className="product-details-success-view">
             <div className="product-details-container">
               <img src={imageUrl} alt="product" className="product-image" />
+
               <div className="product">
                 <h1 className="product-name">{title}</h1>
                 <p className="price-details">Rs {price}/-</p>
+
                 <div className="rating-and-reviews-count">
                   <div className="rating-container">
                     <p className="rating">{rating}</p>
@@ -146,16 +160,21 @@ class ProductItemDetails extends Component {
                   </div>
                   <p className="reviews-count">{totalReviews} Reviews</p>
                 </div>
+
                 <p className="product-description">{description}</p>
+
                 <div className="label-value-container">
                   <p className="label">Available:</p>
                   <p className="value">{availability}</p>
                 </div>
+
                 <div className="label-value-container">
                   <p className="label">Brand:</p>
                   <p className="value">{brand}</p>
                 </div>
+
                 <hr className="horizontal-line" />
+
                 <div className="quantity-container">
                   <button
                     type="button"
@@ -164,7 +183,9 @@ class ProductItemDetails extends Component {
                   >
                     <BsDashSquare className="quantity-controller-icon" />
                   </button>
+
                   <p className="quantity">{quantity}</p>
+
                   <button
                     type="button"
                     className="quantity-controller-button"
@@ -173,6 +194,7 @@ class ProductItemDetails extends Component {
                     <BsPlusSquare className="quantity-controller-icon" />
                   </button>
                 </div>
+
                 <button
                   type="button"
                   className="button add-to-cart-btn"
@@ -182,7 +204,9 @@ class ProductItemDetails extends Component {
                 </button>
               </div>
             </div>
+
             <h1 className="similar-products-heading">Similar Products</h1>
+
             <ul className="similar-products-list">
               {similarProductsData.map(eachSimilarProduct => (
                 <SimilarProductItem

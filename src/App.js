@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {Toaster} from 'react-hot-toast'
 
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
@@ -25,7 +26,7 @@ class App extends Component {
     }
   }
 
-  // ✅ Helper to save cart
+  // ✅ Save helper
   saveCartToStorage = cartList => {
     localStorage.setItem('cartData', JSON.stringify(cartList))
   }
@@ -57,7 +58,7 @@ class App extends Component {
     })
   }
 
-  // ❌ Delete Item
+  // ❌ Delete item
   deleteCartItem = id => {
     this.setState(prevState => {
       const updatedCart = prevState.cartList.filter(item => item.id !== id)
@@ -93,7 +94,7 @@ class App extends Component {
     })
   }
 
-  // 🧹 Remove All
+  // 🧹 Remove all
   removeAllCartItems = () => {
     this.saveCartToStorage([])
     this.setState({cartList: []})
@@ -103,34 +104,39 @@ class App extends Component {
     const {cartList} = this.state
 
     return (
-      <BrowserRouter>
-        <CartContext.Provider
-          value={{
-            cartList,
-            addCartItem: this.addCartItem,
-            deleteCartItem: this.deleteCartItem,
-            incrementItem: this.incrementItem,
-            decrementItem: this.decrementItem,
-            removeAllCartItems: this.removeAllCartItems,
-          }}
-        >
-          <Switch>
-            <Route exact path="/login" component={LoginForm} />
+      <>
+        <BrowserRouter>
+          <CartContext.Provider
+            value={{
+              cartList,
+              addCartItem: this.addCartItem,
+              deleteCartItem: this.deleteCartItem,
+              incrementItem: this.incrementItem,
+              decrementItem: this.decrementItem,
+              removeAllCartItems: this.removeAllCartItems,
+            }}
+          >
+            <Switch>
+              <Route exact path="/login" component={LoginForm} />
 
-            <ProtectedRoute exact path="/" component={Home} />
-            <ProtectedRoute exact path="/products" component={Products} />
-            <ProtectedRoute
-              exact
-              path="/products/:id"
-              component={ProductItemDetails}
-            />
-            <ProtectedRoute exact path="/cart" component={Cart} />
+              <ProtectedRoute exact path="/" component={Home} />
+              <ProtectedRoute exact path="/products" component={Products} />
+              <ProtectedRoute
+                exact
+                path="/products/:id"
+                component={ProductItemDetails}
+              />
+              <ProtectedRoute exact path="/cart" component={Cart} />
 
-            <Route path="/not-found" component={NotFound} />
-            <Redirect to="/not-found" />
-          </Switch>
-        </CartContext.Provider>
-      </BrowserRouter>
+              <Route path="/not-found" component={NotFound} />
+              <Redirect to="/not-found" />
+            </Switch>
+          </CartContext.Provider>
+        </BrowserRouter>
+
+        {/* 🔥 Toast container */}
+        <Toaster position="top-right" />
+      </>
     )
   }
 }

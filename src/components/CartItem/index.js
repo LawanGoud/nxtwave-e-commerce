@@ -1,6 +1,7 @@
 import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 import {AiFillCloseCircle} from 'react-icons/ai'
 
+import toast from 'react-hot-toast'
 import CartContext from '../../context/CartContext'
 
 import './index.css'
@@ -15,6 +16,8 @@ const CartItem = props => (
 
       const onDeleteCartItem = () => {
         deleteCartItem(id)
+
+        toast.error('Item removed from cart ❌')
       }
 
       const onIncrement = () => {

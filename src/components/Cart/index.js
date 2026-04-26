@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import Header from '../Header'
 import CartListView from '../CartListView'
 
@@ -28,7 +29,10 @@ const Cart = () => (
                   <button
                     type="button"
                     className="remove-all-button"
-                    onClick={removeAllCartItems}
+                    onClick={() => {
+                      removeAllCartItems()
+                      toast.success('Cart cleared successfully')
+                    }}
                   >
                     Remove All
                   </button>
