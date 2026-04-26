@@ -8,8 +8,8 @@ persistence, dynamic UI updates, and checkout flow.
 
 ## 🚀 Live Demo
 
-👉 https://your-live-link-here.vercel.app _(If this is empty, your project is
-basically invisible. Fix it.)_
+👉 https://nxtwave-e-commerce-git-main-lawangouds-projects.vercel.app/login
+basically invisible. Fix it.)\_
 
 ---
 
