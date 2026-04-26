@@ -17,61 +17,85 @@ class App extends Component {
     cartList: [],
   }
 
-  // ✅ Add to Cart (with quantity handling)
+  // ✅ Load cart from localStorage
+  componentDidMount() {
+    const storedCart = localStorage.getItem('cartData')
+    if (storedCart) {
+      this.setState({cartList: JSON.parse(storedCart)})
+    }
+  }
+
+  // ✅ Helper to save cart
+  saveCartToStorage = cartList => {
+    localStorage.setItem('cartData', JSON.stringify(cartList))
+  }
+
+  // 🛒 Add to Cart
   addCartItem = product => {
     this.setState(prevState => {
       const existingItem = prevState.cartList.find(
         item => item.id === product.id,
       )
 
+      let updatedCart
+
       if (existingItem) {
-        return {
-          cartList: prevState.cartList.map(item =>
-            item.id === product.id
-              ? {
-                  ...item,
-                  quantity: item.quantity + product.quantity,
-                }
-              : item,
-          ),
-        }
+        updatedCart = prevState.cartList.map(item =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + product.quantity,
+              }
+            : item,
+        )
+      } else {
+        updatedCart = [...prevState.cartList, product]
       }
 
-      return {
-        cartList: [...prevState.cartList, product],
-      }
+      this.saveCartToStorage(updatedCart)
+      return {cartList: updatedCart}
     })
   }
 
-  // ✅ Delete single item
+  // ❌ Delete Item
   deleteCartItem = id => {
-    this.setState(prevState => ({
-      cartList: prevState.cartList.filter(item => item.id !== id),
-    }))
+    this.setState(prevState => {
+      const updatedCart = prevState.cartList.filter(item => item.id !== id)
+
+      this.saveCartToStorage(updatedCart)
+      return {cartList: updatedCart}
+    })
   }
 
-  // ✅ Increment quantity
+  // 🔼 Increment
   incrementItem = id => {
-    this.setState(prevState => ({
-      cartList: prevState.cartList.map(item =>
+    this.setState(prevState => {
+      const updatedCart = prevState.cartList.map(item =>
         item.id === id ? {...item, quantity: item.quantity + 1} : item,
-      ),
-    }))
+      )
+
+      this.saveCartToStorage(updatedCart)
+      return {cartList: updatedCart}
+    })
   }
 
-  // ✅ Decrement quantity
+  // 🔽 Decrement
   decrementItem = id => {
-    this.setState(prevState => ({
-      cartList: prevState.cartList
+    this.setState(prevState => {
+      const updatedCart = prevState.cartList
         .map(item =>
           item.id === id ? {...item, quantity: item.quantity - 1} : item,
         )
-        .filter(item => item.quantity > 0),
-    }))
+        .filter(item => item.quantity > 0)
+
+      this.saveCartToStorage(updatedCart)
+      return {cartList: updatedCart}
+    })
   }
 
-  // ✅ Clear entire cart
+  // 🧹 Remove All
   removeAllCartItems = () => {
+    this.saveCartToStorage([])
     this.setState({cartList: []})
   }
 
