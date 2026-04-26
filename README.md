@@ -1,15 +1,15 @@
 ## 📦 NxtWave E-commerce Project
 
 A fully functional and responsive e-commerce web application built using React.
-This project demonstrates real-world shopping features like cart management,
-product filtering, and dynamic UI updates.
+This project simulates a real-world shopping experience with features like cart
+persistence, dynamic UI updates, and checkout flow.
 
 ---
 
 ## 🚀 Live Demo
 
-👉 (Add your deployed link here — don’t leave this empty unless you enjoy being
-ignored by recruiters)
+👉 https://your-live-link-here.vercel.app _(If this is empty, your project is
+basically invisible. Fix it.)_
 
 ---
 
@@ -19,6 +19,8 @@ ignored by recruiters)
 - CSS3
 - JavaScript (ES6+)
 - React.js
+- Context API
+- LocalStorage
 - REST API
 
 ---
@@ -27,24 +29,38 @@ ignored by recruiters)
 
 ### 🛍️ Product Features
 
-- Product listing with API data
+- Product listing using API data
 - Search functionality
 - Filters (category, rating, etc.)
-- Product detail view
+- Product detail page
+
+---
 
 ### 🛒 Cart Features
 
 - Add to cart
-- **Update quantity of items**
-- **Automatically increase quantity when adding same item**
-- **Delete individual cart item**
-- **Remove all items from cart**
-- **Cart summary (total items, total price)**
+- Update item quantity
+- Automatically merge duplicate items
+- Delete individual cart items
+- Remove all items
+- Cart summary (total items & total price)
+- **Cart persistence using localStorage**
 
-### 📱 UI/UX
+---
 
-- Fully responsive design
-- Clean and user-friendly interface
+### ⚡ User Experience
+
+- Toast notifications for actions (add/remove items)
+- Dynamic cart count in header
+- Disable invalid actions (e.g., quantity < 1)
+- Clean and responsive UI
+
+---
+
+### 💳 Checkout Flow
+
+- Checkout page with order summary
+- Simulated order placement
 
 ---
 
@@ -53,7 +69,6 @@ ignored by recruiters)
 ```
 src/
  ├── components/
- ├── pages/
  ├── context/
  ├── App.js
  ├── index.js
@@ -65,7 +80,7 @@ src/
 ## ⚙️ Installation & Setup
 
 ```bash
-git clone https://github.com/your-username/nxtwave-e-commerce.git
+git clone https://github.com/LawanGoud/nxtwave-e-commerce.git
 cd nxtwave-e-commerce
 npm install
 npm start
@@ -77,29 +92,29 @@ npm start
 
 ### 🏠 Home Page
 
-![Alt text](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190181/Homepage_bus2ay.png)
+![Home](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190181/Homepage_bus2ay.png)
 
 ### 🛍️ Products Page
 
-![Alt text](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190516/productpage_isofdl.png)
+![Products](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190516/productpage_isofdl.png)
 
 ### 🛒 Cart Page
 
-![Alt text](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190606/cartpage_lnjmca.png)
+![Cart](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190606/cartpage_lnjmca.png)
 
 ### 📱 Mobile View
 
-![Alt text](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190673/Screenshot_2026-04-26_at_1.33.52_PM_svjyzz.png)
+![Mobile](https://res.cloudinary.com/dpn2veik7/image/upload/v1777190673/Screenshot_2026-04-26_at_1.33.52_PM_svjyzz.png)
 
 ---
 
 ## 🎯 Learning Outcomes
 
-- Advanced React concepts (state, props, component structure)
-- Cart state management logic
-- Handling dynamic UI updates
-- Working with APIs
-- Building real-world project features
+- State management using Context API
+- Handling complex cart logic
+- Implementing persistence with localStorage
+- Building scalable component structure
+- Creating real-world UI/UX flows
 
 ---
 
@@ -108,23 +123,22 @@ npm start
 - 💳 Payment gateway integration
 - 📦 Order tracking system
 - ❤️ Wishlist feature
-- 🌐 Backend integration for real database
+- 🌐 Backend integration (Node.js + DB)
 - ⚡ Performance optimization
 
 ---
 
 ## 🙋‍♂️ Author
 
-**Your Name**
+**Lawan Goud**
 
-- GitHub:
-  [https://github.com/LawanGoud/nxtwave-e-commerce.git](https://github.com/LawanGoud/nxtwave-e-commerce.git)
-- LinkedIn: (Add link)
+- GitHub: https://github.com/LawanGoud/nxtwave-e-commerce
+- LinkedIn: _(Add your profile link here — don’t be mysterious)_
 
 ---
 
 ## 📄 License
 
-This project is built for educational purposes.
+This project is built for educational and portfolio purposes.
 
 ---
